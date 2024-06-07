@@ -6,11 +6,13 @@ const { renderVerificationEmail } = require('../views/verificationEmail');
 const { JWT_SECRET, EMAIL_SERVICE, EMAIL_USER, EMAIL_PASS } = process.env;
 
 const transporter = nodemailer.createTransport({
-    service: EMAIL_SERVICE,
+    service: 'gmail',
     auth: {
         user: EMAIL_USER,
         pass: EMAIL_PASS
-    }
+    },
+    logger: true,  // Enable logging to console
+    debug: true    // Enable debugging
 });
 
 exports.register = async (req, res) => {
