@@ -17,6 +17,9 @@ const bookSchema = new mongoose.Schema({
         type: String,
         required: true
     },
+    description: {
+        type: String
+    }, // Adding the description field
     user: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User',

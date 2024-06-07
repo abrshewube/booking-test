@@ -2,7 +2,7 @@ const Book = require('../models/Book');
 const cloudinary = require('../services/cloudinary');
 
 exports.createBook = async (req, res) => {
-    const { title, author, publishedYear } = req.body;
+    const { title, author, publishedYear,description } = req.body;
     const { file } = req;
 
     try {
@@ -12,6 +12,7 @@ exports.createBook = async (req, res) => {
             title,
             author,
             publishedYear,
+            description,
             coverPhoto: result.secure_url,
             user: req.user._id
         });
