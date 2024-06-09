@@ -1,35 +1,57 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import React, { useState, useEffect } from 'react';
+import { Routes, Route, Navigate } from "react-router-dom";
+import RegistrationForm from "./components/Auth/Register";
+import VerifyAccount from "./components/Auth/Verify";
+import Home from "./components/Home/Home";
+import LoginForm from "./components/Auth/Login";
+import CreateBookForm from "./components/Book/CreateBook";
+import GetBooks from "./components/Book/GetBookTable";
+import Grbooks from "./components/Book/GetBookCard";
+import EditBook from "./components/Book/EditBook";
+import BookDetails from "./components/Book/BooksDetails";
+import BooksLayout from "./components/Book/BooksLayout";
+import Header from './components/Header/Header';
+import authService from './services/authService';
+import './App.css';
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [username, setUsername] = useState('');
+
+  useEffect(() => {
+    const fetchUsername = async () => {
+      try {
+        const fetchedUsername = await authService.getUsername();
+        setUsername(fetchedUsername);
+      } catch (error) {
+        console.error('Error fetching username:', error);
+      }
+    };
+
+    const token = localStorage.getItem('token');
+    if (token) {
+      fetchUsername();
+    }
+  }, []);
 
   return (
     <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
+      <Header username={username} />
+      <Routes>
+        <Route path="/register" element={<RegistrationForm />} />
+        <Route path="/login" element={<LoginForm />} />
+        {/* <Route path="/" element={<Home />} /> */}
+        <Route path="/verify/:token" element={<VerifyAccount />} />
+        <Route path="/create-book" element={<CreateBookForm />} />
+        <Route path="/edit-book/:id" element={<EditBook />} />
+        <Route path="/book-details/:id" element={<BookDetails />} />
+        <Route path="books" element={<BooksLayout />}>
+          <Route index element={<GetBooks />} />
+          <Route path="card" element={<Grbooks />} />
+        </Route>
+        <Route path="*" element={<Navigate to="/books" />} />
+      </Routes>
     </>
-  )
+  );
 }
 
-export default App
+export default App;

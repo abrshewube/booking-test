@@ -22,7 +22,7 @@ exports.register = async (req, res) => {
         await user.save();
 
         const token = jwt.sign({ id: user._id }, JWT_SECRET, { expiresIn: '1d' });
-        const url = `http://localhost:3000/verify/${token}`;
+        const url = `http://localhost:5173/verify/${token}`;
 
         await transporter.sendMail({
             to: email,
@@ -82,6 +82,18 @@ exports.resetPassword = async (req, res) => {
         await user.save();
 
         res.status(200).json({ message: 'Password reset successfully' });
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+};
+
+exports.getUsername = async (req, res) => {
+    try {
+        const user = await User.findById(req.user.id);
+        if (!user) {
+            return res.status(404).json({ error: 'User not found' });
+        }
+        res.status(200).json({ username: user.username });
     } catch (error) {
         res.status(500).json({ error: error.message });
     }
