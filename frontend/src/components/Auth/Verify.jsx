@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, Link } from 'react-router-dom';
 import authService from '../../services/authService';
 import { FaCheckCircle, FaTimesCircle } from 'react-icons/fa';
 import { Container, Card, Spinner } from 'react-bootstrap';
@@ -37,6 +37,7 @@ const VerifyAccount = () => {
                             <div>
                                 <FaCheckCircle size={50} color="green" />
                                 <h3 className="mt-3 text-success">Your account has been verified!</h3>
+                                <Link to="/login" className="btn btn-primary mt-3">Go to Login</Link>
                             </div>
                         ) : (
                             <div>
