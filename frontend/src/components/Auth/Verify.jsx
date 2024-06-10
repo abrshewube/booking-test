@@ -1,8 +1,9 @@
 import { useEffect, useState } from 'react';
-import { useParams, Link } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import authService from '../../services/authService';
 import { FaCheckCircle, FaTimesCircle } from 'react-icons/fa';
 import { Container, Card, Spinner } from 'react-bootstrap';
+import { Link } from 'react-router-dom';
 
 const VerifyAccount = () => {
     const { token } = useParams(); // Extract token from URL using useParams
