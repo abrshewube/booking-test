@@ -1,4 +1,4 @@
 // server.js
-const serverUrl = 'http://localhost:8080/api';
+const serverUrl = 'https://booking-test-03fm.onrender.com/api';
 
 export default serverUrl;
