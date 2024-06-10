@@ -22,7 +22,7 @@ exports.register = async (req, res) => {
         await user.save();
 
         const token = jwt.sign({ id: user._id }, JWT_SECRET, { expiresIn: '1d' });
-        const url = `http://localhost:5173/verify/${token}`;
+        const url = `https://booking-test-orpin.vercel.app/verify/${token}`;
 
         await transporter.sendMail({
             to: email,
