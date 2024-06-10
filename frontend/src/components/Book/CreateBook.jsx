@@ -43,7 +43,7 @@ const CreateBook = () => {
       formDataToSend.append('description', formData.description);
       formDataToSend.append('coverPhoto', formData.coverPhoto);
   
-      const response = await axios.post('https://booking-test-03fm.onrender.com/api/books', formDataToSend, {
+      const response = await axios.post('http://localhost:8080/api/books', formDataToSend, {
         headers: {
           'Content-Type': 'multipart/form-data',
           Authorization: `Bearer ${token}`
