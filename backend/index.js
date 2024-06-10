@@ -8,8 +8,7 @@ const { authenticate } = require('./middleware/authMiddleware');
 
 const app = express();
 app.use(express.json());
-app.use(cors({ origin: 'http://localhost:5173' })); // Allow requests from port 3000
-
+app.use(cors({ origin: true })); 
 
 
 mongoose.connect(process.env.MONGO_URI, { useNewUrlParser: true, useUnifiedTopology: true })
